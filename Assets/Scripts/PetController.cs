@@ -20,9 +20,21 @@ public class PetController : MonoBehaviour
     }
 
     // --- ボタンから呼ぶメソッド ---
-    public void OnFeedButton() => status.Feed();
-    public void OnPlayButton() => status.Play();
-    public void OnSleepButton() => status.Sleep();
+    public void OnFeedButton()
+    {
+        status.Feed();
+        FindObjectOfType<AchievementManager>()?.OnFeed();
+    }
+    public void OnPlayButton()
+    {
+        status.Play();
+        FindObjectOfType<AchievementManager>()?.OnPlay();
+    }
+    public void OnSleepButton()
+    {
+        status.Sleep();
+        FindObjectOfType<AchievementManager>()?.OnSleep();
+    }
 
     void UpdateAnimation()
     {

@@ -102,13 +102,13 @@ public class TitleSceneManager : MonoBehaviour
     public void OnLoginBonusButton()
     {
         if (LoginBonus.Instance == null) return;
-
         int received = LoginBonus.Instance.ReceiveBonus();
         if (received <= 0) return;
 
-        UpdateUI();
+        // 実績チェックを追加
+        FindObjectOfType<AchievementManager>()?.OnBonusReceived();
 
-        // 結果パネルを表示
+        UpdateUI();
         if (bonusResultText != null) bonusResultText.text = $"+{received} Coins!";
         if (bonusResultPanel != null) bonusResultPanel.SetActive(true);
     }
@@ -135,11 +135,29 @@ public class TitleSceneManager : MonoBehaviour
     public void OnResetButton()
     {
         PlayerPrefs.DeleteAll();
+
+        // GameDataをリセット
         if (GameData.Instance != null)
         {
             GameData.Instance.coins = 0;
             GameData.Instance.level = 1;
+            GameData.Instance.petName = "";  // 名前をリセット
         }
+
+        // 実績をリセット
+        if (AchievementData.Instance != null)
+        {
+            foreach (var achievement in AchievementData.Instance.achievements)
+                achievement.isUnlocked = false;
+        }
+
+        // ログインボーナスをリセット
+        PlayerPrefs.DeleteKey("lastBonusTime");
+        PlayerPrefs.DeleteKey("bonusCount");
+
+        PlayerPrefs.Save();
         UpdateUI();
+
+        Debug.Log("リセット完了");
     }
 }

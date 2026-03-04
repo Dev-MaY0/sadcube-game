@@ -115,6 +115,9 @@ public class MiniGameManager : MonoBehaviour
         int earnedCoins = score / scoreTocoin;
         GameData.Instance?.AddCoins(earnedCoins);
 
+        // 実績チェックを追加
+        FindObjectOfType<AchievementManager>()?.OnMiniGameScore(score);
+
         finalScoreText.text = $"Score: {score}";
         earnedCoinText.text = $"+{earnedCoins} Coins!";
         gameOverPanel.SetActive(true);

@@ -75,8 +75,12 @@ public class LevelUpManager : MonoBehaviour
         if (levelUpEffectText)
         {
             int idx = lv - 1;
-            float decay = idx < hungerDecayReduction.Length ? hungerDecayReduction[idx] * 100 : 0;
-            float happy = idx < happinessBonus.Length ? happinessBonus[idx] : 0;
+            float decay = idx < hungerDecayReduction.Length
+                          ? hungerDecayReduction[idx] * 100 : 0;
+            float happy = idx < happinessBonus.Length
+                          ? happinessBonus[idx] : 0;
+
+            // “ú–{Œê‚ð‚â‚ß‚Ä‰pŒê‚É•ÏX
             levelUpEffectText.text =
                 $"Hunger Decay: -{decay:0}%\nHappiness Bonus: +{happy:0}";
         }
