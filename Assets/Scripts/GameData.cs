@@ -8,6 +8,12 @@ public class GameData : MonoBehaviour
 {
     public static GameData Instance { get; private set; }
 
+    [Header("ショップ")]
+    public bool hasMegane = false;  // メガネ購入済み
+    public bool hasBoshi = false;  // 帽子購入済み
+    public string equippedItem = "";  // 装備中アイテム（"megane" or "boshi" or ""）
+
+
     [Header("所持金・レベル")]
     public int coins = 0;
     public int level = 1;
@@ -56,7 +62,11 @@ public class GameData : MonoBehaviour
     {
         PlayerPrefs.SetInt("coins", coins);
         PlayerPrefs.SetInt("level", level);
-        PlayerPrefs.SetString("petName", petName); // ← 追加
+        PlayerPrefs.SetString("petName", petName); 
+
+        PlayerPrefs.SetInt("hasMegane", hasMegane ? 1 : 0);  
+        PlayerPrefs.SetInt("hasBoshi", hasBoshi ? 1 : 0);  
+        PlayerPrefs.SetString("equippedItem", equippedItem);    
         PlayerPrefs.Save();
     }
 
@@ -64,7 +74,10 @@ public class GameData : MonoBehaviour
     {
         coins = PlayerPrefs.GetInt("coins", 0);
         level = PlayerPrefs.GetInt("level", 1);
-        petName = PlayerPrefs.GetString("petName", ""); // ← 追加
+        petName = PlayerPrefs.GetString("petName", "");
+        hasMegane = PlayerPrefs.GetInt("hasMegane", 0) == 1; 
+        hasBoshi = PlayerPrefs.GetInt("hasBoshi", 0) == 1; 
+        equippedItem = PlayerPrefs.GetString("equippedItem", ""); 
     }
 
     [Header("ペット情報")]

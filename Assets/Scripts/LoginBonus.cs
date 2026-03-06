@@ -5,7 +5,7 @@ public class LoginBonus : MonoBehaviour
 {
     // 何時間に1回か
     const float BONUS_INTERVAL_HOURS = 1f;
-    const int BONUS_COINS = 1200;  // もらえるコイン数
+    const int BONUS_COINS = 3000;  // もらえるコイン数
 
     public static LoginBonus Instance { get; private set; }
 

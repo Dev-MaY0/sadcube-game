@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class TitleSceneManager : MonoBehaviour
 {
+    public Button shopButton;
+
     [Header("UI")]
     public TMP_Text coinText;
     public TMP_Text levelText;
@@ -55,6 +57,7 @@ public class TitleSceneManager : MonoBehaviour
 
         if (howToPlayPanel != null) howToPlayPanel.SetActive(false);
         if (bonusResultPanel != null) bonusResultPanel.SetActive(false);
+        if (shopButton != null) shopButton.onClick.AddListener(OnShopButton);
 
         UpdateUI();
 
@@ -113,6 +116,7 @@ public class TitleSceneManager : MonoBehaviour
         if (bonusResultPanel != null) bonusResultPanel.SetActive(true);
     }
 
+    public void OnShopButton() => SceneManager.LoadScene("ShopScene");
     public void OnCloseBonusResult()
     {
         if (bonusResultPanel != null) bonusResultPanel.SetActive(false);
@@ -142,6 +146,9 @@ public class TitleSceneManager : MonoBehaviour
             GameData.Instance.coins = 0;
             GameData.Instance.level = 1;
             GameData.Instance.petName = "";  // 名前をリセット
+            GameData.Instance.hasMegane = false;  // ← 追加
+            GameData.Instance.hasBoshi = false;  // ← 追加
+            GameData.Instance.equippedItem = "";    // ← 追加
         }
 
         // 実績をリセット

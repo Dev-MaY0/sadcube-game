@@ -3,24 +3,24 @@ using TMPro;
 
 public enum GrowthStage
 {
-    Child,  // レベル1〜2
-    Adult,  // レベル3〜4
-    Elder   // レベル5〜6
+    Child,
+    Adult,
+    Elder
 }
 
 public class PetGrowth : MonoBehaviour
 {
     [Header("成長段階のSprite")]
-    public Sprite childSprite;   // レベル1〜2
-    public Sprite adultSprite;   // レベル3〜4
-    public Sprite elderSprite;   // レベル5〜6
+    public Sprite childSprite;
+    public Sprite adultSprite;
+    public Sprite elderSprite;
 
     [Header("成長段階の境界レベル")]
-    public int adultLevel = 3;   
-    public int elderLevel = 7; 
+    public int adultLevel = 3;
+    public int elderLevel = 5;
 
     [Header("UI")]
-    public TMP_Text stageText;   
+    public TMP_Text stageText;
 
     private GrowthStage currentStage = GrowthStage.Child;
     private SpriteRenderer spriteRenderer;
@@ -34,7 +34,6 @@ public class PetGrowth : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         petController = GetComponent<PetController>();
 
-        
         if (GameData.Instance != null)
         {
             lastLevel = GameData.Instance.level;
@@ -48,7 +47,6 @@ public class PetGrowth : MonoBehaviour
 
         int currentLevel = GameData.Instance.level;
 
-      
         if (currentLevel != lastLevel)
         {
             lastLevel = currentLevel;
@@ -62,7 +60,6 @@ public class PetGrowth : MonoBehaviour
             }
             else
             {
-              
                 UpdateSprite(currentStage);
             }
         }
@@ -78,12 +75,22 @@ public class PetGrowth : MonoBehaviour
     void ApplyStage(GrowthStage stage)
     {
         UpdateSprite(stage);
-        UpdateStageText(stage);
+
+        if (stageText != null)
+        {
+            switch (stage)
+            {
+                case GrowthStage.Child: stageText.text = "Child"; break;
+                case GrowthStage.Adult: stageText.text = "Adult"; break;
+                case GrowthStage.Elder: stageText.text = "Elder"; break;
+            }
+        }
     }
 
     void UpdateSprite(GrowthStage stage)
     {
         if (spriteRenderer == null) return;
+
         switch (stage)
         {
             case GrowthStage.Child:
@@ -97,28 +104,23 @@ public class PetGrowth : MonoBehaviour
                 break;
         }
 
-        // Spriteのサイズを固定
-        if (spriteRenderer.sprite != null)
+        // PetEquipmentManagerに通知
+        var equipment = GetComponent<PetEquipmentManager>();
+        if (equipment != null)
         {
-            float targetSize = 2.0f; // ← この値で表示サイズを調整
-            float spriteSize = spriteRenderer.sprite.bounds.size.x;
-            float scale = targetSize / spriteSize;
-            transform.localScale = new Vector3(scale, scale, 1f);
+            equipment.UpdateEquipment();
+        }
+        else
+        {
+            if (spriteRenderer.sprite != null)
+            {
+                float targetSize = 1.0f;
+                float spriteSize = spriteRenderer.sprite.bounds.size.x;
+                float scale = targetSize / spriteSize;
+                transform.localScale = new Vector3(scale, scale, 1f);
+            }
         }
     }
-
-    void UpdateStageText(GrowthStage stage)
-    {
-        if (stageText == null) return;
-        switch (stage)
-        {
-            case GrowthStage.Child: stageText.text = "Child"; break;
-            case GrowthStage.Adult: stageText.text = "Adult"; break;
-            case GrowthStage.Elder: stageText.text = "Elder"; break;
-        }
-    }
-
-
 
     public GrowthStage GetCurrentStage() => currentStage;
 }
