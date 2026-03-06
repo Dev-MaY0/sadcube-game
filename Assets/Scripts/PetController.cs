@@ -4,6 +4,8 @@ public class PetController : MonoBehaviour
 {
     public PetStatus status = new PetStatus();
 
+    [Header("成長段階")]
+    public PetGrowth petGrowth;
     [Header("アニメーション（任意）")]
     public Animator animator;
 

@@ -333,6 +333,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40403668}
   m_CullTransparentMesh: 1
+--- !u!1 &48915913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48915914}
+  m_Layer: 0
+  m_Name: GrowthEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &48915914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48915913}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &65436774
 GameObject:
   m_ObjectHideFlags: 0
@@ -5667,6 +5698,7 @@ GameObject:
   - component: {fileID: 960362896}
   - component: {fileID: 960362895}
   - component: {fileID: 960362894}
+  - component: {fileID: 960362897}
   m_Layer: 0
   m_Name: Pet
   m_TagString: Untagged
@@ -5694,6 +5726,7 @@ MonoBehaviour:
     isAlive: 1
     hungerDecayRate: 1
     happinessDecayRate: 0.5
+  petGrowth: {fileID: 0}
   animator: {fileID: 0}
 --- !u!212 &960362895
 SpriteRenderer:
@@ -5759,12 +5792,30 @@ Transform:
   m_GameObject: {fileID: 960362893}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -0.62, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.1, y: -0.57, z: 0}
+  m_LocalScale: {x: 0.8772, y: 0.8312, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960362897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960362893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8722668e19bdf48b59d73eb18240b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childSprite: {fileID: 6894618971706791888, guid: fd920132cd5af8342ac7d65bb9f48123, type: 3}
+  adultSprite: {fileID: -8236539841154336818, guid: fc134dedfcc1626449e0b724ad2b59cf, type: 3}
+  elderSprite: {fileID: -1746322568174983757, guid: f9a2511b51ab8b246a5edc70d3e70eac, type: 3}
+  adultLevel: 5
+  elderLevel: 7
+  stageText: {fileID: 0}
 --- !u!1 &965018764
 GameObject:
   m_ObjectHideFlags: 0
@@ -9691,6 +9742,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 48915914}
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1645691733}

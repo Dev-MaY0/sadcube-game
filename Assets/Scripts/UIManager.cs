@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
-{
+{ 
+
     [Header("スライダー")]
     public Slider hungerSlider;
     public Slider happinessSlider;
@@ -25,16 +26,16 @@ public class UIManager : MonoBehaviour
         petController = FindObjectOfType<PetController>();
         if (petController == null) return;
 
-        // イベント購読
+        
         petController.status.OnStatusChanged += UpdateUI;
         petController.status.OnPetDied += ShowGameOver;
 
-        // ボタン設定
+       
         feedButton.onClick.AddListener(petController.OnFeedButton);
         playButton.onClick.AddListener(petController.OnPlayButton);
         sleepButton.onClick.AddListener(petController.OnSleepButton);
 
-        // 初期表示
+        
         UpdateUI(petController.status);
     }
 
@@ -53,6 +54,8 @@ public class UIManager : MonoBehaviour
             else if (s.health < 30f) statusMessageText.text = "🤒 具合が悪いみたい…";
             else if (s.happiness > 80f) statusMessageText.text = "😄 とっても幸せ！";
             else statusMessageText.text = "😊 元気だよ！";
+
+           
         }
     }
 
@@ -65,4 +68,5 @@ public class UIManager : MonoBehaviour
         playButton.interactable = false;
         sleepButton.interactable = false;
     }
+   
 }
