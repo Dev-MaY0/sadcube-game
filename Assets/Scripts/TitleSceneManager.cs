@@ -31,6 +31,9 @@ public class TitleSceneManager : MonoBehaviour
     public TMP_Text bonusResultText;  // 「+30 Coins!」などの表示
     public Button bonusCloseButton; // 結果パネルの閉じるボタン
 
+    [Header("ステージセレクト")]
+    public Button stageSelectButton;
+
     void Start()
     {
         if (GameData.Instance == null)
@@ -64,6 +67,11 @@ public class TitleSceneManager : MonoBehaviour
         bool hasSave = PlayerPrefs.HasKey("coins");
         if (continueButton != null)
             continueButton.SetActive(hasSave);
+
+        if (stageSelectButton != null)
+            stageSelectButton.onClick.AddListener(
+                () => SceneManager.LoadScene("StageSelectScene")
+            );
     }
 
     void Update()

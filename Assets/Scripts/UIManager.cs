@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     public Button playButton;
     public Button sleepButton;
 
+   
+
     private PetController petController;
 
     void Start()

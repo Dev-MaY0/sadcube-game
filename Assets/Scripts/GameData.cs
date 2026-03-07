@@ -21,9 +21,17 @@ public class GameData : MonoBehaviour
     [Header("レベルアップコスト（レベルごと）")]
     public int[] levelUpCosts = { 50, 120, 250, 500, 1000 };
 
+    [Header("ステージ")]
+    public int clearedStage = 0;
+
     void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
         Load();
@@ -66,7 +74,8 @@ public class GameData : MonoBehaviour
 
         PlayerPrefs.SetInt("hasMegane", hasMegane ? 1 : 0);  
         PlayerPrefs.SetInt("hasBoshi", hasBoshi ? 1 : 0);  
-        PlayerPrefs.SetString("equippedItem", equippedItem);    
+        PlayerPrefs.SetString("equippedItem", equippedItem);
+        PlayerPrefs.SetInt("clearedStage", clearedStage);
         PlayerPrefs.Save();
     }
 
@@ -77,7 +86,8 @@ public class GameData : MonoBehaviour
         petName = PlayerPrefs.GetString("petName", "");
         hasMegane = PlayerPrefs.GetInt("hasMegane", 0) == 1; 
         hasBoshi = PlayerPrefs.GetInt("hasBoshi", 0) == 1; 
-        equippedItem = PlayerPrefs.GetString("equippedItem", ""); 
+        equippedItem = PlayerPrefs.GetString("equippedItem", "");
+        clearedStage = PlayerPrefs.GetInt("clearedStage", 0);
     }
 
     [Header("ペット情報")]
