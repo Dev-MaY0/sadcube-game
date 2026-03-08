@@ -18,21 +18,24 @@ public class TitleSceneManager : MonoBehaviour
     public Button resetButton;
     public Button quitButton;
     public Button howToPlayButton;
-    public Button loginBonusButton;   // ← 追加
+    public Button loginBonusButton; 
 
     [Header("遊び方パネル")]
     public GameObject howToPlayPanel;
     public Button closeButton;
 
     [Header("ログインボーナス")]
-    public TMP_Text bonusTimerText;   // 残り時間表示
-    public TMP_Text bonusButtonText;  // ボタンのテキスト
-    public GameObject bonusResultPanel; // 受け取り結果パネル
-    public TMP_Text bonusResultText;  // 「+30 Coins!」などの表示
-    public Button bonusCloseButton; // 結果パネルの閉じるボタン
+    public TMP_Text bonusTimerText;  
+    public TMP_Text bonusButtonText;  
+    public GameObject bonusResultPanel;
+    public TMP_Text bonusResultText;  
+    public Button bonusCloseButton; 
 
     [Header("ステージセレクト")]
     public Button stageSelectButton;
+
+    [Header("設定ボタン")]
+    public GameObject configButton;
 
     void Start()
     {
@@ -48,7 +51,7 @@ public class TitleSceneManager : MonoBehaviour
             go.AddComponent<LoginBonus>();
         }
 
-        // ボタン登録
+        
         if (startButton != null) startButton.onClick.AddListener(OnStartButton);
         if (miniGameButton != null) miniGameButton.onClick.AddListener(OnMiniGameButton);
         if (resetButton != null) resetButton.onClick.AddListener(OnResetButton);
@@ -122,6 +125,8 @@ public class TitleSceneManager : MonoBehaviour
         UpdateUI();
         if (bonusResultText != null) bonusResultText.text = $"+{received} Coins!";
         if (bonusResultPanel != null) bonusResultPanel.SetActive(true);
+
+        
     }
 
     public void OnShopButton() => SceneManager.LoadScene("ShopScene");
@@ -137,11 +142,17 @@ public class TitleSceneManager : MonoBehaviour
     public void OnHowToPlayButton()
     {
         if (howToPlayPanel != null) howToPlayPanel.SetActive(true);
+
+        if (configButton != null)
+            configButton.SetActive(false);
     }
 
     public void OnCloseHowToPlay()
     {
         if (howToPlayPanel != null) howToPlayPanel.SetActive(false);
+
+        if (configButton != null)
+            configButton.SetActive(true);
     }
 
     public void OnResetButton()
