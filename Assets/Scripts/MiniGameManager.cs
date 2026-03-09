@@ -19,9 +19,9 @@ public class MiniGameManager : MonoBehaviour
     public TMP_Text earnedCoinText;
 
     [Header("ボタン")]
-    public Button retryButton;   // ← 追加
-    public Button backButton;    // ← 追加
-    public Button titleButton;   // ← 追加
+    public Button retryButton;
+    public Button backButton;
+    public Button titleButton;
 
     [Header("ゲーム設定")]
     public float gameTime = 60f;
@@ -37,16 +37,9 @@ public class MiniGameManager : MonoBehaviour
 
     void Start()
     {
-        if (GameData.Instance == null)
-        {
-            var go = new GameObject("GameData");
-            go.AddComponent<GameData>();
-        }
-
         timeLeft = gameTime;
         gameOverPanel.SetActive(false);
 
-        // ボタンをスクリプトから登録
         if (retryButton != null) retryButton.onClick.AddListener(OnRetryButton);
         if (backButton != null) backButton.onClick.AddListener(OnBackButton);
         if (titleButton != null) titleButton.onClick.AddListener(OnTitleButton);
@@ -115,8 +108,9 @@ public class MiniGameManager : MonoBehaviour
         int earnedCoins = score / scoreTocoin;
         GameData.Instance?.AddCoins(earnedCoins);
 
-        // 実績チェックを追加
-        FindObjectOfType<AchievementManager>()?.OnMiniGameScore(score);
+        // ← デイリーミッション進捗を追加
+        if (DailyMissionManager.Instance != null)
+            DailyMissionManager.Instance.AddMiniGameCount();
 
         finalScoreText.text = $"Score: {score}";
         earnedCoinText.text = $"+{earnedCoins} Coins!";

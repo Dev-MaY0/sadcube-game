@@ -26,6 +26,9 @@ public class PetController : MonoBehaviour
     {
         status.Feed();
         FindObjectOfType<AchievementManager>()?.OnFeed();
+
+        if (DailyMissionManager.Instance != null)
+            DailyMissionManager.Instance.AddFeedCount();
     }
     public void OnPlayButton()
     {
